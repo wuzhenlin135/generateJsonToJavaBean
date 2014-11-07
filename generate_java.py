@@ -27,21 +27,23 @@ DEFAULT_CLASS_IMPORTS = [
 CLASS_IMPORTS = {
 }
 
-PACKAGE = "com.androidex.appformwork";
+PACKAGE = "//TODO ";
 
 # 'http://192.168.1.172:89/company/getCompanyInfo/user_code/5c57eab3600e11e48da914dae974c66c/company_code/5c57f114600e11e48da914dae974c66c'
 def main():
     arg = args();
     url = arg.url
-    
+
     if not url:
-        print "no url"
+        print "please input --url, specify The need for automatic generation of the class interface,Must be a JSON structure"
         exit()
     
     className = arg.className
+	
     if not className:
-        className = url.split('/')[3].capitalize() + url.split('/')[4].capitalize()
-    
+		print "please input --className, specify root class name" 
+		exit()
+		
     outPath = arg.outPath;
     if not os.path.exists(outPath):
         outPath = os.getcwd()
@@ -85,11 +87,11 @@ def writJava(fileName, content):
 
 def args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--url", help="parsed json url")
-    parser.add_argument("--className", help="outer class name")
-    parser.add_argument("--outPath", default=os.getcwd(), help="out path of auto generate file")
-    parser.add_argument("--package", default=PACKAGE, help="class package name")
-    parser.add_argument("--outType", default=1, type=int, help=" 1: parser       2:Gson")
+    parser.add_argument("--url", help="parsed json url",type=str)
+    parser.add_argument("--className", help="specify root class name")
+    parser.add_argument("--outPath", default=os.getcwd(), help="Automatic generation of storage file path ,default current path.")
+    parser.add_argument("--package", default=PACKAGE, help="Generating the .java file class package name")
+    parser.add_argument("--outType", default=2, type=int, help=" 1: parser       2:Gson")
     return parser.parse_args()
 
 ################################################################################################
