@@ -43,8 +43,12 @@ def main():
     if not className:
 		print "please input --className, specify root class name" 
 		exit()
-		
-    outPath = arg.outPath;
+
+    outPath = arg.outPath
+    global PACKAGE 
+    PACKAGE = arg.package
+
+    
     if not os.path.exists(outPath):
         outPath = os.getcwd()
     
@@ -73,8 +77,8 @@ def main():
             # parser
             parserFileName = key + "Parser.java"
             print "creating... " + parserFileName;
-            parserContent = GenerateClass_parser(parserFileName[:-5], value);
-            parserPath = os.path.join(outPath, 'parser');
+            parserContent = GenerateClass_parser(key, value);
+            parserPath = os.path.join(outPath, 'parsers');
             if not os.path.exists(parserPath):
                 os.mkdir(parserPath)
             parserFileName = os.path.join(parserPath, parserFileName);
@@ -282,7 +286,7 @@ PARSER = """\
 /**
  * Copyright 2014 Galen Wu
  */
-package %(package)s.parser;
+package %(package)s.parsers;
 
 import org.json.JSONException;
 import org.json.JSONObject;
